@@ -1,0 +1,51 @@
+/* Float four columns side by side */
+.custom-odd-column {
+    float: left;
+    width: 33%;
+    padding: 10px;
+}
+.custom-even-column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.custom-row {
+    margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.custom-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 1000px) {
+    .custom-odd-column, .custom-even-column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/* Style the counter cards */
+.custom-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    background-color: rgb(240, 251, 253);
+}
+.custom-card * {
+    margin-bottom: 0px;
+}
+
+.custom-inputBody {
+    padding: 16px;
+}
+.custom-banner {
+    background-size:cover;
+    background-position: center;
+    background-repeat:no-repeat;
+}

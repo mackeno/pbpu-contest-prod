@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plant-based power-up progress tracker</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="./main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Open Sans', sans-serif;
+        }
+        .widget-numbers-padding{
+            padding-left: 15px;
+        }
+    </style>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <script type="module" src="./assets/scripts/db-logic-test.js"></script>
+    <link rel="icon" type="image/x-icon" href="./assets/images/icons/favicon.ico">
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <a href="./">
+                    <h6 style="font-weight: bolder ;">plant-based power-up</h6>
+                </a>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                        class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div> -->
+            <div class="app-header__content">
+                <!-- <div class="app-header-left">
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search">
+                            <button class="search-icon"><span></span></button>
+                        </div>
+                        <button class="close"></button>
+                    </div>
+                    <ul class="header-menu nav">
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <i class="nav-link-icon fa fa-database"> </i>
+                                Statistics
+                            </a>
+                        </li>
+                        <li class="btn-group nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <i class="nav-link-icon fa fa-edit"></i>
+                                Projects
+                            </a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <i class="nav-link-icon fa fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <!-- <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                                alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true"
+                                            class="dropdown-menu dropdown-menu-right">
+                                            <button type="button" tabindex="0" class="dropdown-item">User
+                                                Account</button>
+                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
+                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <!-- <div class="widget-heading">
+                                        Joe Howard
+                                    </div> -->
+                                    <div class="widget-subheading">
+                                        <!-- joe@wayfwdfitness.com -->
+                                    </div>
+                                </div>
+                                <div class="widget-content-right header-user-info ml-3">
+                                    <!-- <div class="mb-2 mr-2 p-2 btn-group">
+                                                <button class="btn btn-primary btn-sm">Small</button>
+                                                <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-primary btn-sm"><span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-7px, 29px, 0px);">
+                                                    <button type="button" tabindex="0" class="dropdown-item">Menus</button>
+                                                    <button type="button" tabindex="0" class="dropdown-item">Settings</button>
+                                                    <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                                    <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                                    <div tabindex="-1" class="dropdown-divider"></div>
+                                                    <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                                </div>
+                                            </div> -->
+                                    <!-- <button id="dashboardLoginBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal" data-target="#loginModal">
+                                        <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                        <span class="mr-1">Login</span>
+                                    </button>
+                                    <button id="dashboardRegisterBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal" data-target="#registerModal">
+                                        <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                        <span class="mr-1">Register</span>
+                                    </button>
+                                    <button id="signOutBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" >
+                                        Sign Out
+                                    </button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="ui-theme-settings">
+            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
+                <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
+            </button>
+            <div class="theme-settings__inner">
+                <div class="scrollbar-container">
+                    <div class="theme-settings__options-wrapper">
+                        <h3 class="themeoptions-heading">Layout Options
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class"
+                                                    data-class="fixed-header">
+                                                    <div class="switch-animate switch-on">
+                                                        <input type="checkbox" checked data-toggle="toggle"
+                                                            data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Fixed Header
+                                                </div>
+                                                <div class="widget-subheading">Makes the header top fixed, always
+                                                    visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class"
+                                                    data-class="fixed-sidebar">
+                                                    <div class="switch-animate switch-on">
+                                                        <input type="checkbox" checked data-toggle="toggle"
+                                                            data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Fixed Sidebar
+                                                </div>
+                                                <div class="widget-subheading">Makes the sidebar left fixed, always
+                                                    visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class"
+                                                    data-class="fixed-footer">
+                                                    <div class="switch-animate switch-off">
+                                                        <input type="checkbox" data-toggle="toggle"
+                                                            data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">Fixed Footer
+                                                </div>
+                                                <div class="widget-subheading">Makes the app footer bottom fixed, always
+                                                    visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>
+                                Header Options
+                            </div>
+                            <button type="button"
+                                class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-header-cs-class"
+                                data-class="">
+                                Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">Choose Color Scheme
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div class="swatch-holder bg-primary switch-header-cs-class"
+                                            data-class="bg-primary header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-secondary switch-header-cs-class"
+                                            data-class="bg-secondary header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-success switch-header-cs-class"
+                                            data-class="bg-success header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-info switch-header-cs-class"
+                                            data-class="bg-info header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-warning switch-header-cs-class"
+                                            data-class="bg-warning header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-danger switch-header-cs-class"
+                                            data-class="bg-danger header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-light switch-header-cs-class"
+                                            data-class="bg-light header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-dark switch-header-cs-class"
+                                            data-class="bg-dark header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-focus switch-header-cs-class"
+                                            data-class="bg-focus header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-alternate switch-header-cs-class"
+                                            data-class="bg-alternate header-text-light">
+                                        </div>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="swatch-holder bg-vicious-stance switch-header-cs-class"
+                                            data-class="bg-vicious-stance header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-midnight-bloom switch-header-cs-class"
+                                            data-class="bg-midnight-bloom header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-night-sky switch-header-cs-class"
+                                            data-class="bg-night-sky header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-slick-carbon switch-header-cs-class"
+                                            data-class="bg-slick-carbon header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-asteroid switch-header-cs-class"
+                                            data-class="bg-asteroid header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-royal switch-header-cs-class"
+                                            data-class="bg-royal header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-warm-flame switch-header-cs-class"
+                                            data-class="bg-warm-flame header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-night-fade switch-header-cs-class"
+                                            data-class="bg-night-fade header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-sunny-morning switch-header-cs-class"
+                                            data-class="bg-sunny-morning header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-tempting-azure switch-header-cs-class"
+                                            data-class="bg-tempting-azure header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-amy-crisp switch-header-cs-class"
+                                            data-class="bg-amy-crisp header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-heavy-rain switch-header-cs-class"
+                                            data-class="bg-heavy-rain header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-mean-fruit switch-header-cs-class"
+                                            data-class="bg-mean-fruit header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-malibu-beach switch-header-cs-class"
+                                            data-class="bg-malibu-beach header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-deep-blue switch-header-cs-class"
+                                            data-class="bg-deep-blue header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-ripe-malin switch-header-cs-class"
+                                            data-class="bg-ripe-malin header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-arielle-smile switch-header-cs-class"
+                                            data-class="bg-arielle-smile header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-plum-plate switch-header-cs-class"
+                                            data-class="bg-plum-plate header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-fisher switch-header-cs-class"
+                                            data-class="bg-happy-fisher header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-itmeo switch-header-cs-class"
+                                            data-class="bg-happy-itmeo header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-mixed-hopes switch-header-cs-class"
+                                            data-class="bg-mixed-hopes header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-strong-bliss switch-header-cs-class"
+                                            data-class="bg-strong-bliss header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-grow-early switch-header-cs-class"
+                                            data-class="bg-grow-early header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-love-kiss switch-header-cs-class"
+                                            data-class="bg-love-kiss header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-premium-dark switch-header-cs-class"
+                                            data-class="bg-premium-dark header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-green switch-header-cs-class"
+                                            data-class="bg-happy-green header-text-light">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>Sidebar Options</div>
+                            <button type="button"
+                                class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-sidebar-cs-class"
+                                data-class="">
+                                Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">Choose Color Scheme
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div class="swatch-holder bg-primary switch-sidebar-cs-class"
+                                            data-class="bg-primary sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-secondary switch-sidebar-cs-class"
+                                            data-class="bg-secondary sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-success switch-sidebar-cs-class"
+                                            data-class="bg-success sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-info switch-sidebar-cs-class"
+                                            data-class="bg-info sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-warning switch-sidebar-cs-class"
+                                            data-class="bg-warning sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-danger switch-sidebar-cs-class"
+                                            data-class="bg-danger sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-light switch-sidebar-cs-class"
+                                            data-class="bg-light sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-dark switch-sidebar-cs-class"
+                                            data-class="bg-dark sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-focus switch-sidebar-cs-class"
+                                            data-class="bg-focus sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-alternate switch-sidebar-cs-class"
+                                            data-class="bg-alternate sidebar-text-light">
+                                        </div>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="swatch-holder bg-vicious-stance switch-sidebar-cs-class"
+                                            data-class="bg-vicious-stance sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-midnight-bloom switch-sidebar-cs-class"
+                                            data-class="bg-midnight-bloom sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-night-sky switch-sidebar-cs-class"
+                                            data-class="bg-night-sky sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-slick-carbon switch-sidebar-cs-class"
+                                            data-class="bg-slick-carbon sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-asteroid switch-sidebar-cs-class"
+                                            data-class="bg-asteroid sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-royal switch-sidebar-cs-class"
+                                            data-class="bg-royal sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-warm-flame switch-sidebar-cs-class"
+                                            data-class="bg-warm-flame sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-night-fade switch-sidebar-cs-class"
+                                            data-class="bg-night-fade sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-sunny-morning switch-sidebar-cs-class"
+                                            data-class="bg-sunny-morning sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-tempting-azure switch-sidebar-cs-class"
+                                            data-class="bg-tempting-azure sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-amy-crisp switch-sidebar-cs-class"
+                                            data-class="bg-amy-crisp sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-heavy-rain switch-sidebar-cs-class"
+                                            data-class="bg-heavy-rain sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-mean-fruit switch-sidebar-cs-class"
+                                            data-class="bg-mean-fruit sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-malibu-beach switch-sidebar-cs-class"
+                                            data-class="bg-malibu-beach sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-deep-blue switch-sidebar-cs-class"
+                                            data-class="bg-deep-blue sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-ripe-malin switch-sidebar-cs-class"
+                                            data-class="bg-ripe-malin sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-arielle-smile switch-sidebar-cs-class"
+                                            data-class="bg-arielle-smile sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-plum-plate switch-sidebar-cs-class"
+                                            data-class="bg-plum-plate sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-fisher switch-sidebar-cs-class"
+                                            data-class="bg-happy-fisher sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-itmeo switch-sidebar-cs-class"
+                                            data-class="bg-happy-itmeo sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-mixed-hopes switch-sidebar-cs-class"
+                                            data-class="bg-mixed-hopes sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-strong-bliss switch-sidebar-cs-class"
+                                            data-class="bg-strong-bliss sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-grow-early switch-sidebar-cs-class"
+                                            data-class="bg-grow-early sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-love-kiss switch-sidebar-cs-class"
+                                            data-class="bg-love-kiss sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-premium-dark switch-sidebar-cs-class"
+                                            data-class="bg-premium-dark sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-green switch-sidebar-cs-class"
+                                            data-class="bg-happy-green sidebar-text-light">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>Main Content Options</div>
+                            <button type="button"
+                                class="btn-pill btn-shadow btn-wide ml-auto active btn btn-focus btn-sm">Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">Page Section Tabs
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div role="group" class="mt-2 btn-group">
+                                            <button type="button"
+                                                class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class"
+                                                data-class="body-tabs-line">
+                                                Line
+                                            </button>
+                                            <button type="button"
+                                                class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class"
+                                                data-class="body-tabs-shadow">
+                                                Shadow
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="app-main">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="app-header__logo">
+                    <h6 style="font-weight: bolder ;">plant-based power-up</h6>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading" id="dashboardDisplayEmail"></li>
+                            <div>
+                                <button id="dashboardLoginBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal" data-target="#loginModal">
+                                    <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                    <span class="mr-1">Login</span>
+                                </button>
+                                <button id="dashboardRegisterBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal" data-target="#registerModal">
+                                    <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                    <span class="mr-1">Register</span>
+                                </button>
+                                <button id="signOutBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm" >
+                                    Sign Out
+                                </button>
+                            </div>
+                            <li class="app-sidebar__heading">progress tracker and contest</li>
+                            <li>
+                                <a id="adminDashboardLink" href="./admin-view.html" style="display: none;" class="">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Admin Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a id="clientDashboardLink" href="./client-view.html" style="display: none;" class="">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Referral Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./index.html" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-home"></i>
+                                    contest rules and faq
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./progress-tracker.html">
+                                    <i class="metismenu-icon pe-7s-date"></i>
+                                    progress tracker
+                                </a>
+                            </li>
+                            <!-- <li class="app-sidebar__heading">Milestones</li> -->
+                            <!-- <li>
+                                <a href="./rewards.html">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Rewards
+                                </a>
+                            </li> -->
+                            <!-- <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-car"></i>
+                                    Goals & Progress
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tables-regular.html">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Community
+                                </a>
+                            </li> -->
+                            <!-- <li class="app-sidebar__heading">Milestones</li> -->
+                            <!-- <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-diamond"></i>
+                                    Rewards
+                                </a>
+                            </li>
+                            <li> -->
+                                <!-- <a href="#">
+                                    <i class="metismenu-icon pe-7s-car"></i>
+                                    Goals & Progress
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a> -->
+                                <!-- <ul>
+                                    <li>
+                                        <a href="components-tabs.html">
+                                            <i class="metismenu-icon">
+                                            </i>Tabs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-accordions.html">
+                                            <i class="metismenu-icon">
+                                            </i>Accordions
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-notifications.html">
+                                            <i class="metismenu-icon">
+                                            </i>Notifications
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-modals.html">
+                                            <i class="metismenu-icon">
+                                            </i>Modals
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-progress-bar.html">
+                                            <i class="metismenu-icon">
+                                            </i>Progress Bar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-tooltips-popovers.html">
+                                            <i class="metismenu-icon">
+                                            </i>Tooltips &amp; Popovers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-carousel.html">
+                                            <i class="metismenu-icon">
+                                            </i>Carousel
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-calendar.html">
+                                            <i class="metismenu-icon">
+                                            </i>Calendar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-pagination.html">
+                                            <i class="metismenu-icon">
+                                            </i>Pagination
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-scrollable-elements.html">
+                                            <i class="metismenu-icon">
+                                            </i>Scrollable
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="components-maps.html">
+                                            <i class="metismenu-icon">
+                                            </i>Maps
+                                        </a>
+                                    </li>
+                                </ul> 
+                            </li>-->
+                            <!-- <li>
+                                <a href="tables-regular.html">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Community
+                                </a>
+                            </li> -->
+                            <!-- <li class="app-sidebar__heading">Widgets</li>
+                            <li>
+                                <a href="dashboard-boxes.html">
+                                    <i class="metismenu-icon pe-7s-display2"></i>
+                                    Dashboard Boxes
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">Forms</li>
+                            <li>
+                                <a href="forms-controls.html">
+                                    <i class="metismenu-icon pe-7s-mouse">
+                                    </i>Forms Controls
+                                </a>
+                            </li>
+                            <li>
+                                <a href="forms-layouts.html">
+                                    <i class="metismenu-icon pe-7s-eyedropper">
+                                    </i>Forms Layouts
+                                </a>
+                            </li>
+                            <li>
+                                <a href="forms-validation.html">
+                                    <i class="metismenu-icon pe-7s-pendrive">
+                                    </i>Forms Validation
+                                </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-door-lock icon-gradient bg-grow-early">
+                                    </i>
+                                </div>
+                                <div>
+                                    <span class="text-primary">Welcome to the plant-based power-up contest!</span>
+                                    <div class="page-title-subheading">Improve your consistency and progress today
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block dropdown">
+                                    <div class="btn-group-lg btn-group btn-group-toggle">
+                                        <button class="mb-2 mr-2 btn-group-lg btn btn-primary" style="pointer-events: none;">
+                                            <i class="pe-7s-gift"></i> grand prize<span class="badge badge-light">$100</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-10 mx-auto">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-4 col-sm-12">
+                                    <div class="card-shadow-success main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-success" style="margin-bottom: 0;">Build Discipline</h5>
+                                            <!-- <h6 class="card-subtitle">Build Healthy Habits</h6> -->
+                                            <!-- <p style="margin-bottom: 0;">Create healthy habits with your nutrition and fitness to improve your energy and wellbeing</p> -->
+                                            <p style="margin-bottom: 0;">Improve your energy and wellbeing by creating healthy habits using nutrition and fitness.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-shadow-info main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-info" style="margin-bottom: 0;">Create Accountability</h5>
+                                            <!-- <h6 class="card-subtitle">Earn Additional Sessions</h6> -->
+                                            <!-- <p style="margin-bottom: 0;">Generate self-reliance through consistently tracking your process goals</p> -->
+                                            <p style="margin-bottom: 0;">Reach your goals by building self-reliance through consistent progress-tracking.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-shadow-warning main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-warning" style="margin-bottom: 0;">Enjoy Simplicity</h5>
+                                            <!-- <h6 class="card-subtitle">Rely Less on Willpower</h6> -->
+                                            <p style="margin-bottom: 0;">Follow simple habits that help you bounce back from setbacks.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6 col-lg-4 col-sm-12">
+                                    <div class="card-shadow-success main-card mb-3 card">
+                                        <div class="card-body">
+                                            <div class="chartjs-size-monitor"
+                                                style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                                <div class="chartjs-size-monitor-expand"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div
+                                                        style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                    </div>
+                                                </div>
+                                                <div class="chartjs-size-monitor-shrink"
+                                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                    <div
+                                                        style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <h5 class="card-title">Consistent Progress <i class="fa fa-fw" aria-hidden="true" title="what to expect if you're consistent" data-container="body" data-toggle="tooltip" data-placement="bottom" data-content="some details about how we set this person up, doing the minimum steps of 5000, water, exercise 20 minutes, etc" data-original-title="what to expect if you're consistent" aria-describedby="popover56238"></i></h5>
+                                            <canvas id="stacked-bars-chart" height="350" width="485"
+                                                class="chartjs-render-monitor"
+                                                style="display: block; height: 194px; width: 388px;"></canvas>
+                                        
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="widget-content">
+                                                        <div class="widget-content-outer">
+                                                            <div class="text-center">12 out of 12 pounds lost</div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="12" style="width: 100%;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12 col-lg-8 col-sm-12">
+                                    <div class="card-shadow-info main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">Consistent Progress vs Inconsistent Progress</h5>
+                                            <div style="height: 300px">
+                                                <div class="chartjs-size-monitor"
+                                                    style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                                    <div class="chartjs-size-monitor-expand"
+                                                        style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                        <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                                    </div>
+                                                    <div class="chartjs-size-monitor-shrink"
+                                                        style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                        <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                                    </div>
+                                                </div>
+                                                <canvas id="line-chart" height="400" width="456" class="chartjs-render-monitor" style="display: block; height: 300px; width: 365px;"></canvas>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="widget-content">
+                                                        <div class="widget-content-outer">
+                                                            <div class="text-center">
+                                                                <span>you can lose 12 lbs in 12 weeks</span>
+                                                                <i class="fa fa-fw" aria-hidden="true" title="you can lose a lb week (up to two lbs a week) by consistently keeping up with your habits in fitness and nutrition" data-container="body" data-toggle="tooltip" data-placement="bottom"></i>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="12" style="width: 100%;">12/12 lbs lost</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="widget-content">
+                                                        <div class="widget-content-outer">
+                                                            <div class="text-center">
+                                                                <span>John lost 3 lbs after 12 weeks</span>
+                                                                <i class="fa fa-fw" aria-hidden="true" title="like most people if you're inconsistent in exercising and calorie consumption you'll suffer fluctuations in weight gain and weight loss" data-container="body" data-toggle="tooltip" data-placement="bottom"></i>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-warning" role="progressbar" style="color: black; padding: 0 5px;" aria-valuenow="3" aria-valuemin="0"
+                                                                    aria-valuemax="12" style="width: 25%;">3/12 lbs lost</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="text-center mbg-3" >
+                                <button class="btn-wide btn-shadow  fsize-1 btn btn-focus btn-lg" data-toggle="modal" data-target="#registerModal" id="signUpWandButton" style="display: none">
+                                    <span class="mr-2 opacity-7">
+                                        <i class="pe-7s-magic-wand"> </i>
+                                    </span>
+                                    register to win $100
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-8 mx-auto">
+                            <div id="accordion" class="accordion-wrapper mb-3">
+                                <div class="card">
+                                    <div id="headingOne" class="card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block">
+                                            <h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> Why are you running a plantbasedpowerup contest?</h5>
+                                        </button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse show">
+                                        <div class="card-body">
+                                            <p style="margin-bottom: 0;">
+                                                This contest is intended to encourage people to be more active, reward them for staying accountable, and show the
+                                                benefits of consuming less meat. By entering this contest, you can use my easy-to-use fitness tracker and be rewarded
+                                                for your progress and accountability.
+                                            </p>               
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div id="headingTwo" class="b-radius-0 card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> is eating plant-based a requirement?</h5></button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne2" class="collapse">
+                                        <div class="card-body">
+                                            <p style="margin-bottom: 0;">
+                                                No. Eating plant-based is not required, but contestants are strongly encouraged to consume less meat and try plant-based
+                                                options for the 90-day duration of the contest.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div id="headingThree" class="card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> what's the winning prize?</h5></button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne3" class="collapse">
+                                        <div class="card-body">
+                                            <p style="margin-bottom: 0;">
+                                                Contestants who reach the Top 20% will receive up to $200 in cash prizes split among the winners.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div id="headingSix" class="card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="false" aria-controls="collapseSix" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> how are points awarded?</h5></button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne6" class="collapse">
+                                        <div class="card-body">
+                                                Contestants will earn points through their consistency in the 90-day duration of the contest. 
+                                                <br>
+                                                Points are awarded by
+                                                tracking:
+                                                <ul>
+                                                    <li>Water consumption</li>
+                                                    <li>Exercise</li>
+                                                    <li>Step count</li>
+                                                    <li>protein intake</li>
+                                                    <li>fiber intake</li>
+                                                    <li>Reaching individual and group milestones</li>
+                                                </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div id="headingFour" class="card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="false" aria-controls="collapseFour" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> How does this help me with tracking?</h5></button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne4" class="collapse">
+                                        <div class="card-body">This easy-to-use tracker will make your habits as simple possible. plant-based power-up’s goal is to reduce complexity in people’s lives with simple methods anyone can follow.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div id="headingFive" class="card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="false" aria-controls="collapseFive" class="text-left m-0 p-0 btn btn-link btn-block"><h5 class="m-0 p-0"><i class="fa fa-fw" aria-hidden="true" title="Click to expand"></i> why are we only tracking protein and fiber?</h5></button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseOne5" class="collapse">
+                                        <div class="card-body">
+                                            <p>
+                                                for this program you’ll emphasize on eating protein and fiber because they increase thermogenesis in your body, which means your body will actually burn more calories to break down protein and fiber.
+                                            </p>
+                                            <p style="margin-bottom: 0;">
+                                                if you'd like to know what your suggested macros are, please get a free guide from our main website at <a style="font-weight: bold;" target="_blank" href="https://www.plantbasedpowerup.com">www.plantbasedpowerup.com</a>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <!-- <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left pr-2 fsize-1">
+                                                <div class="widget-numbers mt-0 fsize-3 text-danger">71%</div>
+                                            </div>
+                                            <div class="widget-content-right w-100">
+                                                <div class="progress-bar-xs progress">
+                                                    <div class="progress-bar bg-danger" role="progressbar"
+                                                        aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 71%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-left fsize-1">
+                                            <div class="text-muted opacity-6">Income Target</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left pr-2 fsize-1">
+                                                <div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
+                                            </div>
+                                            <div class="widget-content-right w-100">
+                                                <div class="progress-bar-xs progress">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 54%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-left fsize-1">
+                                            <div class="text-muted opacity-6">Expenses Target</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left pr-2 fsize-1">
+                                                <div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
+                                            </div>
+                                            <div class="widget-content-right w-100">
+                                                <div class="progress-bar-xs progress">
+                                                    <div class="progress-bar bg-warning" role="progressbar"
+                                                        aria-valuenow="32" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 32%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-left fsize-1">
+                                            <div class="text-muted opacity-6">Spendings Target</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left pr-2 fsize-1">
+                                                <div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
+                                            </div>
+                                            <div class="widget-content-right w-100">
+                                                <div class="progress-bar-xs progress">
+                                                    <div class="progress-bar bg-info" role="progressbar"
+                                                        aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 89%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-left fsize-1">
+                                            <div class="text-muted opacity-6">Totals Target</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <div class="app-wrapper-footer">
+                    <div class="app-footer">
+                        <div class="app-footer__inner">
+                            <div class="app-footer-left">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            Footer Link 1
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            Footer Link 2
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="app-footer-right">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            Footer Link 3
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0);" class="nav-link">
+                                            <div class="badge badge-success mr-1 ml-0">
+                                                <small>NEW</small>
+                                            </div>
+                                            Footer Link 4
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./assets/scripts/main.js"></script>
+</body>
+
+</html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Log into the plant-based power-up contest!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">email</span></div>
+                    <input placeholder="username" id="usernameLogin" type="text" class="form-control">
+                </div>
+                <div class="input-group" id="passwordLoginGroup">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password</span></div>
+                    <input placeholder="password" id="passwordLogin" type="password" class="form-control"> </div>
+                    <p class="ml-2 invalid-feedback" id="loginErrorMessage">Please confirm the email and password you used is correct.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeLoginModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="resetPasswordBtn" type="button" class="btn btn-secondary">Reset Password</button>
+                <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register for the plant-based power-up contest</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">full name</span></div>
+                    <input placeholder="full name" id="fullNameRegister" type="text" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">email</span></div>
+                    <input placeholder="email address" id="usernameRegister" type="email" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password</span></div>
+                    <input placeholder="password" id="passwordRegister" type="password" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password*</span></div>
+                    <input placeholder="please type password again" id="passwordRegister2" type="password" class="form-control" required>
+                </div>
+                <p class="ml-2">By registering for an account, you agree to accept marketing emails*</p>
+                <p id="passwordValidationError" class="ml-2">Passwords must contain an uppercase letter, lowercase letter, number, a special character, and be at least 8 characters long</p>
+                <p id="passwordMismatchError" class="ml-2 invalid-feedback">Passwords do not match</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeRegisterModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="myBtn" type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>plant-based power-up progress tracker</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--
+    =========================================================
+    * ArchitectUI HTML Theme Dashboard - v1.0.0
+    =========================================================
+    * Product Page: https://dashboardpack.com
+    * Copyright 2019 DashboardPack (https://dashboardpack.com)
+    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
+    =========================================================
+    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    -->
+    <link href="./main.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <script type="module" src="./assets/scripts/db-logic-test.js"></script>
+
+    <!-- cloudinary -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>  
+    <link rel="icon" type="image/x-icon" href="./assets/images/icons/favicon.ico">
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+                <a href="./">
+                    <h6 style="font-weight: bolder ;">plant-based power-up</h6>
+                </a>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" id="menu-hamburger" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__content">
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="app-main">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="app-header__logo">
+                    <div class="logo-src"></div>
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <ul class="vertical-nav-menu">
+                            <li class="app-sidebar__heading" id="dashboardDisplayEmail"></li>
+                            <div>
+                                <button id="dashboardLoginBtn" type="button"
+                                    class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#loginModal">
+                                    <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                    <span class="mr-1">Login</span>
+                                </button>
+                                <button id="dashboardRegisterBtn" type="button"
+                                    class="btn-shadow p-1 btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#registerModal">
+                                    <i class="fa fa-fw" aria-hidden="true" title="Copy to use id-badge"></i>
+                                    <span class="mr-1">Register</span>
+                                </button>
+                                <button id="signOutBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm">
+                                    Sign Out
+                                </button>
+                            </div>
+                            <li class="app-sidebar__heading">progress tracker and contest</li>
+                            <li>
+                                <a id="adminDashboardLink" href="./admin-view.html" style="display: none;">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Admin Dashboard
+                                </a>
+                            </li>
+                            <!-- <li>
+                                <a id="clientDashboardLink" href="./client-view.html" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-rocket"></i>
+                                    Referral Dashboard
+                                </a>
+                            </li> -->
+                            <li>
+                                <a href="./">
+                                    <i class="metismenu-icon pe-7s-home"></i>
+                                    contest rules and faq
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./progress-tracker.html" class="mm-active">
+                                    <i class="metismenu-icon pe-7s-date"></i>
+                                    progress tracker
+                                </a>
+                            </li>
+                            <li class="app-sidebar__heading">Total Points Balance</li>
+                            <button id="tempBtn" type="button" class="btn-shadow p-1 btn btn-primary btn-sm">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use fire"></i> <span id="pointsBalanceId"></span><span> Points</span>
+                            </button>
+                            <li class="app-sidebar__heading">Milestones achieved</li>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_3Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_3Checkbox">3 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_4Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_4Checkbox">4 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_7Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_7Checkbox">7 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_14Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_14Checkbox">14 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_28Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_28Checkbox">28 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_42Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_42Checkbox">42 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_66Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_66Checkbox">66 days in a row</label>
+                            </div>
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" id="milestone_85Checkbox" class="custom-control-input milestone-checkbox">
+                                <label class="custom-control-label" for="milestone_85Checkbox">85 days in a row</label>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-gym icon-gradient bg-grow-early">
+                                    </i>
+                                </div>
+                                <div>
+                                    Goal Setting and Habit Tracking!
+                                    <div class="page-title-subheading">Here you will set your goals you want to achieve and the progress you make by tracking your progress.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-title-actions">
+                                <div class="d-inline-block dropdown text-center">
+                                    <button type="button" id="habitTrackerBtnId" aria-expanded="false" class="btn-shadow btn btn-info mb-1" data-toggle="modal" data-target="#trackHabitModal">
+                                        <i class="fa fa-fw" aria-hidden="true" title="Copy to use plus-circle"></i>
+                                        Track Your Progress Here
+                                    </button>
+                                    <br>
+                                    <a aria-expanded="false" class="opacity-8" data-toggle="modal" data-target="#thresholdModal" style="font-size: small; cursor: pointer;"><i class="fa fa-cog"> </i> set up goal thresholds</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 mx-auto">
+                            <div class="text-center mbg-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="width: 95px; background: #e0fff2;">search date</span>
+                                    </div>
+                                    <input id="search-date-input" placeholder="enter a search date" name="search_date" type="date" class="form-control" required>
+                                    <div class="input-group-append" style="background:white">
+                                        <button id="search-record-btn" class="btn-transition btn btn-outline-success" style="padding: .375rem .375rem">Search Records</button>
+                                    </div>
+                                </div>
+                                <p>
+                                    <i class="fa fa-fw text-primary" aria-hidden="true" id="all-goals-checkmark" style="display:none"></i> 
+                                    <i class="fa fa-fw text-danger" aria-hidden="true" id="all-goals-x"></i>
+                                    Minimum Daily Goals Reached <i class="fa fa-fw" aria-hidden="true" title="minimum daily goals: 4000 steps, 100oz of water, 75g of protein, 20g of fiber, and 15 minutes of exercise." data-container="body" data-toggle="tooltip" data-placement="bottom"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="progressTrackerTableData">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="./assets/scripts/main.js"></script>
+
+</body>
+
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Share with a friend</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- TODO: Change to Production when going Live -->
+            <!-- Testing DB: https://getform.io/f/e822dc01-f92c-4b89-8154-f55bd708b255 -->
+            <form action="https://getform.io/f/e822dc01-f92c-4b89-8154-f55bd708b255" method="POST">
+                <div class="modal-body">
+                    <!-- <p class="mb-0">Your friend saves $5 and you receive (10) Fitpoints</p> -->
+                    <div class="input-group" style="display: none;">
+                        <div class="input-group-prepend"><span class="input-group-text"
+                                style="width: 85px; background: #e0fff2;">referrer full name</span></div>
+                        <input id="referrerFullName" name="referrer_full_name" type="text">
+                    </div>
+                    <div class="input-group" style="display: none;">
+                        <div class="input-group-prepend"><span class="input-group-text"
+                                style="width: 85px; background: #e0fff2;">referrer email</span></div>
+                        <input id="referrerEmail" name="referrer_email" type="text">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"
+                                style="width: 85px; background: #e0fff2;">first name</span></div>
+                        <input placeholder="first name" name="first_name" type="text" class="form-control" required>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"
+                                style="width: 85px; background: #e0fff2;">phone</span></div>
+                        <input placeholder="##########" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required type="tel"
+                            name="phone" required class="form-control">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"
+                                style="width: 85px; background: #e0fff2;">email</span></div>
+                        <input placeholder="email" type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Refer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Log into the plant-based power-up contest</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">email</span></div>
+                    <input placeholder="username" id="usernameLogin" type="text" class="form-control">
+                </div>
+                <div class="input-group" id="passwordLoginGroup">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password</span></div>
+                    <input placeholder="password" id="passwordLogin" type="password" class="form-control"> </div>
+                    <p class="ml-2 invalid-feedback" id="loginErrorMessage">Please confirm the email and password you used is correct.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeLoginModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="resetPasswordBtn" type="button" class="btn btn-secondary">Reset Password</button>
+                <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register for the plant-based power-up contest</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">full name</span></div>
+                    <input placeholder="full name" id="fullNameRegister" type="text" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">email</span></div>
+                    <input placeholder="email address" id="usernameRegister" type="email" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password</span></div>
+                    <input placeholder="password" id="passwordRegister" type="password" class="form-control" required>
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">password*</span></div>
+                    <input placeholder="please type password again" id="passwordRegister2" type="password" class="form-control" required>
+                </div>
+                <p class="ml-2">By registering for an account, you agree to accept marketing emails*</p>
+                <p id="passwordValidationError" class="ml-2">Passwords must contain an uppercase letter, lowercase letter, number, a special character, and be at least 8 characters long</p>
+                <p id="passwordMismatchError" class="ml-2 invalid-feedback">Passwords do not match</p>
+            </div>
+            <div class="modal-footer">
+                <button id="closeRegisterModalBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="myBtn" type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="trackHabitModal" tabindex="-1" data-record-id="" style="z-index: 1050;" role="dialog" aria-labelledby="trackHabitModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="trackHabitModalLabel">Track your progress here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">category</span></div>
+                    <select id="selectTrackerCategoryId" class="form-control">
+                        <option value="1">Select an option</option> 
+                        <option value="goals">Goals</option> 
+                        <option value="exercise">Exercise</option> 
+                        <option value="protein">Protein</option> 
+                        <option value="fiber">Fiber</option> 
+                        <option value="steps">Steps</option> 
+                        <option value="water">Water</option> 
+                    </select>
+                </div>
+                <div id="habitTrackerInputGroups"></div>
+                <div class="text-center mt-1">
+                    <button class="btn-wide btn-shadow fsize-1 btn btn-info btn-lg" id="photoUploadBtn" style="display: none;">
+                        <span class="mr-2 opacity-9">
+                            <i class="fa fa-fw" aria-hidden="true" title="Copy to use picture-o"></i>
+                        </span>
+                        Upload Photo
+                    </button>
+                </div>
+                <p class="ml-2 invalid-feedback" id="trackerMissingDateId">Please input a date</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="saveProgressId" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="viewAllDataModal" tabindex="-1" style="z-index: 1049;" role="dialog" aria-labelledby="viewAllDataModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewAllDataModalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="input-group" style="padding: 5px 1rem">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 95px; background: #e0fff2;">search date</span>
+                </div>
+                <input id="modal-search-date-input" placeholder="enter a search date" name="search_date" type="date" class="form-control"
+                    required>
+                <div class="input-group-append" style="background:white">
+                    <button id="modal-search-record-btn" class="btn-transition btn btn-outline-success"
+                        style="padding: .375rem .375rem">Search Records</button>
+                </div>
+            </div>
+            <div class="modal-body" id="view-all-data-modal-body-id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" data-toggle="modal" data-target="#trackHabitModal" id="quick-add-view-all-modal" class="btn btn-info"><i class="fa fa-fw" aria-hidden="true"></i> add new</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="thresholdModal" tabindex="-1" role="dialog" aria-labelledby="thresholdModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thresholdModalLabel">set up daily goal settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">protein (g)</span></div>
+                    <input placeholder="what's your daily protein goal? ex. 30 grams" id="proteinThresholdSettings" type="number" class="form-control">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">fiber (g)</span></div>
+                    <input placeholder="what's your daily fiber goal? ex. 30 grams" id="fiberThresholdSettings" type="number" class="form-control">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">steps</span></div>
+                    <input placeholder="what's your daily step goal? ex. 7500 steps" id="stepsThresholdSettings" type="number" class="form-control">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend"><span class="input-group-text" style="width: 85px; background: #e0fff2;">water (oz)</span></div>
+                    <input placeholder="what's your daily water goal? ex. 120 ounces" id="waterThresholdSettings" type="number" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="saveThresholdsBtn" type="button" class="btn btn-primary">save</button>
+            </div>
+        </div>
+    </div>
+</div>
