@@ -233,6 +233,10 @@ function registerNewUserAccount() {
                     // await sendEmailVerification(userCredential.user);
                     // ...
                     document.getElementById("closeRegisterModalBtn").click();
+
+                    await setTimeout(() => {
+                        (location.reload()) //comment for tests || uncomment for production
+                    }, 1500);
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -260,6 +264,7 @@ function signInUser() {
             // Signed in 
             const user = userCredential.user;
             document.getElementById("closeLoginModalBtn").click();
+            location.reload();
         })
         .catch((error) => {
             const errorCode = error.code;
