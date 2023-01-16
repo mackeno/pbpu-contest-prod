@@ -327,12 +327,6 @@ async function addToCollectionData(referrer_full_name, referralEmail) {
     }
     let milestonesSettingsObj = {
         ["milestones"]: {
-            milestone_3: {
-                achieved: false
-            },
-            milestone_4: {
-                achieved: false
-            },
             milestone_7: {
                 achieved: false
             },
@@ -1646,14 +1640,6 @@ async function updateDatesTracked(){
     let milestonePoints = 0;
     let milestoneReached = false;
     switch (daysReached) {
-        case 3: 
-            milestoneReached = true;
-            milestonePoints = 30;
-            break;
-        case 4: 
-            milestoneReached = true;
-            milestonePoints = 60;
-            break;
         case 7: 
             milestoneReached = true;
             milestonePoints = 50;
