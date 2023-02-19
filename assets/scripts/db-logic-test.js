@@ -1314,6 +1314,9 @@ document.addEventListener('click', function (e) {
 });
 
 function populateUserProgressTrackerModal(tableCategory, searchDate) {
+    // 🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨
+    // 🟥🟦🟩🟨REMOVE SEARCH DATE FILTER IF YOU WANT TO SHOW ALL ROWS OF DATA WITHIN THE MODAL🟥🟦🟩🟨
+    // 🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨🟥🟦🟩🟨
     let allTables = "";
     // Object.keys(gTableCells).forEach(tableCategory => {
     let tableTemplate = `<INNERTABLEDATA>`;
@@ -1330,6 +1333,7 @@ function populateUserProgressTrackerModal(tableCategory, searchDate) {
     let tableRowPlaceholderSection = "";
     let tableHeadingPlaceholderSection = "";
     // use this to create pages => array.slice(start, end).forEach()
+    
     Object.keys(gTableCells[tableCategory]).filter(row => row.includes(searchDate)).forEach(tableRow => {
         let tableRowTemplate = `
                     <tr>
