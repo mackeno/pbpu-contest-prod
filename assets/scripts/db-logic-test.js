@@ -1068,7 +1068,7 @@ if (window.location.href.includes("progress-tracker")) {
     document.getElementById("search-date-input").value = getDateToday();
     document.getElementById("search-record-btn").addEventListener("click", populateUserProgressView);
 
-    document.getElementById("modal-search-date-input").value = getDateToday();
+    document.getElementById("modal-search-date-input").value = document.getElementById("search-date-input").value;
     document.getElementById("modal-search-record-btn").addEventListener("click", () => {
         let tableCategory = document.getElementById("quick-add-view-all-modal").dataset.quickAddCategory;
         populateUserProgressTrackerModal(tableCategory, document.getElementById("modal-search-date-input").value)
@@ -1263,7 +1263,7 @@ function getDateToday() {
 }
 
 function populateHabitTrackerModal(categorySelected) {
-    const today = getDateToday();
+    const today = document.getElementById("search-date-input").value;
     let dateInjectorValue = "";
     let selectedCategoryData = gTrackerCategoryData.data()[categorySelected];
     document.getElementById("habitTrackerInputGroups").innerHTML = "";
@@ -1307,7 +1307,9 @@ function populateHabitTrackerModal(categorySelected) {
 document.addEventListener('click', function (e) {
     if (e.target && e.target.id.includes(`view-all`) && e.target.id.includes(`data-btn`)) {
         let categoryName = e.target.dataset.category;
-        populateUserProgressTrackerModal(categoryName, document.getElementById("modal-search-date-input").value);
+        populateUserProgressTrackerModal(categoryName, document.getElementById("search-date-input").value);
+        document.getElementById("modal-search-date-input").value = document.getElementById("search-date-input").value;
+        // console.log(document.getElementById("search-date-input").value);
     }
 });
 
